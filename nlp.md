@@ -29,3 +29,18 @@ stopword=set(stopwords.words('english'))
 
 ```
 
+### 1.1.3 vocab_freq
+```python
+#create a vocab_freq 
+vocab_freq=defaultdict(int)
+
+#count the frequencies of every word in each sentence
+for token in tokens:
+            if token not in vocab_dict:
+                vocab_freq[token]=1
+            else:
+                vocab_freq[token]+=1
+                
+ #sort the vocab_freq by the number of frequencies in descending order
+vocb_freq=sorted(voca_freq.items(),key=lambda x:x[1],reverse=True)
+```
