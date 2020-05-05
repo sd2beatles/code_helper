@@ -29,7 +29,7 @@ stopword=set(stopwords.words('english'))
 
 ```
 
-### 1.1.3 vocab_freq
+### 1.1.3 vocab_freq(normal code)
 ```python
 #create a vocab_freq 
 vocab_freq=defaultdict(int)
@@ -44,3 +44,33 @@ for token in tokens:
  #sort the vocab_freq by the number of frequencies in descending order
 vocb_freq=sorted(voca_freq.items(),key=lambda x:x[1],reverse=True)
 ```
+### 1.1.4 voca_freq(Counter)
+
+
+```python
+#Right after tokenizing all the sentences, we should put them into the list called sentences 
+#Concate all the lists into one dimenions
+vocabs=np.hstack(sentences)
+
+from collections import Counter
+#Using Counter library to create vocab_freq
+vocab_freq=Counter(vocabs)
+vocab_freq=sorted(vocab_freq.items(),key=lambda x:x[1],reverse=True)
+```
+### 1.1.5 vocab_freq(nltk)
+```python
+from nltk import FreqDist
+import numpy as np
+
+#convert the lists into one dimension
+tokens=np.hstack(sentences)
+
+voca_freq=FreqDist(tokens)
+#Limit the number of most common words up to the specific number
+voca_most=voca_freq.most_common(10)
+
+```
+
+### 1.1.6 vocab_freq(keras)
+
+
