@@ -71,6 +71,51 @@ voca_most=voca_freq.most_common(10)
 
 ```
 
-### 1.1.6 vocab_freq(keras)
+### 2. Tokenizer (Sentencepieces)
+
+
+```python
+# In the case where the input file csv
+with open(input_file, 'a+', encoding='utf-8') as f:
+    for idx, row in df.iterrows():
+        f.write('{}\n'.format(row['text']))
+
+#
+templates= '--input={} \
+--pad_id={} \
+--bos_id={} \
+--eos_id={} \
+--unk_id={} \
+--model_prefix={} \
+--vocab_size={} \
+--character_coverage={} \
+--model_type={} \
+--hard_vocab_limit=false'
+
+
+
+train_input_file = "파일 폴더/dialogues_train.txt"
+pad_id=0  #<pad> token을 0으로 설정
+vocab_size = 2000 # vocab 사이즈
+prefix = 'botchan_spm' # 저장될 tokenizer 모델에 붙는 이름
+bos_id=1 #<start> token을 1으로 설정
+eos_id=2 #<end> token을 2으로 설정
+unk_id=3 #<unknown> token을 3으로 설정
+character_coverage = 1.0 # to reduce character set 
+model_type ='word' # Choose from unigram (default), bpe, char, or word
+
+
+cmd = templates.format(r'file directory\news.txt',
+                pad_id,
+                bos_id,
+                eos_id,
+                unk_id,
+                prefix,
+                vocab_size,
+                character_coverage,
+                model_type)
+
+
+```
 
 
