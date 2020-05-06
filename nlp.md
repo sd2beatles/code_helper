@@ -115,7 +115,21 @@ cmd = templates.format(r'file directory\news.txt',
                 character_coverage,
                 model_type)
 
+#train our model based on the training dataset
+spm.SentencePieceTrainer.Train(cmd)
 
+#load the model
+sp=spm.SentencePieceProcessor()
+sp.Load('{}.model'.format(prefix))
+
+#Create the subwordlist
+sp.EncodeAsPieces('지금 세계에서는 많은 사람들이 코로나로 고통받고 있습니다.')
+#Create the subwordIndx
+sp.EncodeAsIds('지금 세계에서는 많은 사람들이 코로나로 고통받고 있습니다.')
+
+#print the list of tokens
+with open('{}.vocab'.format(prefix),encoding='utf-8') as f:
+    vocabs=[doc.strip() for doc in f]
 ```
 
 
