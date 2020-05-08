@@ -26,6 +26,13 @@ key parameters
 ![image](https://user-images.githubusercontent.com/53164959/81252886-19119980-9062-11ea-8e7e-6e0adfa416f7.png)
 
 ```python
+param_test ={'num_leaves': sp_randint(6, 50), 
+             'min_child_samples': sp_randint(100, 500), 
+             'min_child_weight': [1e-5, 1e-3, 1e-2, 1e-1, 1, 1e1, 1e2, 1e3, 1e4],
+             'subsample': sp_uniform(loc=0.2, scale=0.8), 
+             'colsample_bytree': sp_uniform(loc=0.4, scale=0.6),
+             'reg_alpha': [0, 1e-1, 1, 2, 5, 7, 10, 50, 100],
+             'reg_lambda': [0, 1e-1, 1, 5, 10, 20, 50, 100]}
 
 fit_params={'early_stopping_rounds':30,
             'eval_metrics':'logloss', #Default: ‘l2’ for LGBMRegressor, ‘logloss’ for LGBMClassifier, ‘ndcg’ for LGBMRanker.
