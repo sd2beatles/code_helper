@@ -60,3 +60,27 @@ gs = RandomizedSearchCV(
     verbose=True)
 
 ```
+## 2. GridSearch
+
+```python
+def auc_scores(X,y):
+    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2)
+    sm=SMOTE(random_state=0)
+    X_over,y_over=sm.fit_sample(X,y)
+    params={
+             'rf__n_estimators':[5,10],
+             'rf__max_depth':[2,4,6],
+             'rf__min_samples_split':[4,8,12]
+            }
+    pipeline=Pipeline([('sc',sc),
+                       ('rf',rf)])
+    grid_search=GridSearchCV(pipeline,param_grid=params,scoring='roc_auc',cv=4)
+    grid_search.fit(X_over,y_over)
+    y_pred=grid_search.predict(X_test)
+    results=roc_auc_score(y_test,y_pred)
+    return results
+
+
+
+
+```
