@@ -79,8 +79,39 @@ def auc_scores(X,y):
     y_pred=grid_search.predict(X_test)
     results=roc_auc_score(y_test,y_pred)
     return results
+```
+
+## 3. RandomizedSearch
+```python
+from sklearn.model_selection import RandomizedSearchCV
+# Number of trees in random forest
+n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
+# Number of features to consider at every split
+max_features = ['auto', 'sqrt']
+# Maximum number of levels in tree
+max_depth = [int(x) for x in np.linspace(10, 110, num = 11)]
+max_depth.append(None)
+# Minimum number of samples required to split a node
+min_samples_split = [2, 5, 10]
+# Minimum number of samples required at each leaf node
+min_samples_leaf = [1, 2, 4,6]
+# Method of selecting samples for training each tree
+bootstrap = [True, False]
+
+# Create the random grid
+random_grid = {'rf__n_estimators': n_estimators,
+               'rf__max_features': max_features,
+               'rf__max_depth': max_depth,
+               'rf__min_samples_split': min_samples_split,
+               'rf__min_samples_leaf': min_samples_leaf,
+               'rf__bootstrap': bootstrap}
+
+pipeline=Pipeline([('sc',sc),('rf',rf)])
+rf_grid_search=RandomizedSearchCV(pipeline,param_distributions=random_grid,n_iter=100,cv=5,n_jobs=-1,verbose=2)
+rf_grid_search.fit(X_re,y_re)
 
 
 
 
 ```
+
