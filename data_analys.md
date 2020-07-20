@@ -40,3 +40,6 @@ def json_read(path,columns):
     return df 
 
 ```
+![image](https://user-images.githubusercontent.com/53164959/87947151-e3674300-cadd-11ea-9f40-6a2599f34f4d.png)
+
+
