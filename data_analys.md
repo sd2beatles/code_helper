@@ -19,3 +19,24 @@ For more specific function to use, we need to implement the followings
 data['time_column']=data['time_column'].astype('datatime64[ns]')
 
 ```
+
+
+## 2. Json File Read
+
+```
+def json_read(path,columns):
+    df = pd.read_csv(path, 
+                     converters={column: json.loads for column in columns}, # loading the json columns properly
+                     dtype={'fullVisitorId': 'str'})# Number of rows that will be imported randomly
+    
+    for column in columns: #loop to finally transform the columns in data frame
+        #It will normalize and set the json to a table
+        column_as_df = json_normalize(df[column]) 
+        # here will be set the name using the category and subcategory of json columns
+        column_as_df.columns = [f"{column}_{subcolumn}" for subcolumn in column_as_df.columns] 
+        # after extracting the values, let drop the original columns
+        df = df.drop(column, axis=1).merge(column_as_df, right_index=True, left_index=True)
+        
+    return df 
+
+```
